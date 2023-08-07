@@ -14,7 +14,18 @@ module.exports = function toReadable (number) {
     let wordsArray = '';
 
     if (number >= 100) {
-        wordsArray = wordsArray + numbers[Math.floor(number / 100)] + ' hundred';
+        wordsArray += numbers[Math.floor(number / 100)] + ' hundred';
+        number %= 100;
+    }
+
+    if (number > 0) {
+        wordsArray += (wordsArray !== '') ? ' ' : '';
+
+        if (number in numbers) {
+            wordsArray += numbers[number];
+        } else {
+            wordsArray += numbers[Math.floor(number / 10) * 10] + ' ' + numbers[number % 10];
+        }
     }
 
     return wordsArray;
